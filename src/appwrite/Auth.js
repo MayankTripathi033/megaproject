@@ -1,8 +1,8 @@
 import Conf from '../Conf/Conf';
-import {client, Account, ID} from 'appwrite';
+import {Client, Account, ID} from 'appwrite';
 
 export class AuthService {
-    client = new client();
+    client = new Client();
     account;
 
     constructor(){
@@ -15,7 +15,8 @@ export class AuthService {
     async createAccount({email, password, name}){
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
-            if(userAccount) return this.login({email, password}) //Call another method
+            if(userAccount) {
+            return this.login({email, password})} //Call another method
             else return userAccount;
         } catch (error) {
             throw error;
@@ -25,8 +26,6 @@ export class AuthService {
     async login({email, password}){
         try {
             const userlogin = await this.account.createEmailSession(email, password)
-            if(userlogin) return;
-            else return userlogin;
         } catch (error) {
             throw error;
         }
@@ -34,7 +33,13 @@ export class AuthService {
 
     async getCurrentUser(){
         try {
-            await this.account.get();
+            const currentuser =  await this.account.get();
+            if(currentuser){
+                return currentuser
+            } else {
+                console.log("User not found");
+            }
+
         } catch (error) {
             console.log("Appwrite :: getCurrentUser :: error", error);
         }
