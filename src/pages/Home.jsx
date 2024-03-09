@@ -1,8 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import appwriteService from "../appwrite/config";
 import {Container, PostCard} from '../components'
+import {useSelector} from "react-redux";
+
+
 
 function Home() {
+    const status = useSelector((state) => state.auth.status);
+    console.log(status);
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -12,6 +17,9 @@ function Home() {
             }
         })
     }, [])
+
+    // console.log(posts[0].status);
+
   
     if (posts.length === 0) {
         return (
@@ -28,6 +36,7 @@ function Home() {
             </div>
         )
     }
+    if(status === true){
     return (
         <div className='w-full py-8'>
             <Container>
@@ -41,6 +50,12 @@ function Home() {
             </Container>
         </div>
     )
+}
+return (
+    <>
+        <h1>Please Login To see Post</h1>
+    </>
+)
 }
 
 export default Home

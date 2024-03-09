@@ -19,6 +19,10 @@ function App() {
         dispatch(logout())
       }
     })
+    .catch((error) => {
+      console.log("error :: ", error);
+      return error;
+    })
     .finally(() => setLoading(false))
   }, [])
   
@@ -27,7 +31,7 @@ function App() {
       <div className='w-full block'>
         <Header />
         <main>
-        TODO:  <Outlet />
+        <Outlet />
         </main>
         <Footer />
       </div>
