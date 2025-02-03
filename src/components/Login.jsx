@@ -16,12 +16,10 @@ function Login() {
     setError("");
     try {
       console.log("dataa", data);
-      debugger;
 
       const session = await authService.login(data);
       if (session) {
         console.log("session", session);
-        debugger;
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin(userData));
         navigate("/");
